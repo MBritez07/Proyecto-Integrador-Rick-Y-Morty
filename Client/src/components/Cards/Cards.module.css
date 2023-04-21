@@ -1,0 +1,18 @@
+.cardsContainer {
+    
+    display: flex;
+    background-color:rgba(27, 3, 62, 0.139);
+    flex-wrap: wrap;
+    justify-content: center;
+    width:100%;
+  
+ }
+
+.tracking-out-expand-forward-top{
+    animation:tracking-out-expand-forward-top 0.4s 
+    linear both
+} 
+    @keyframes tracking-out-expand-forward-top{
+        0%{transform:translateZ(0) translateY(0);opacity:1}
+        60%{opacity:.8}
+        100%{letter-spacing:1em;transform:translateZ(300px) translateY(-200px);opacity:0}}

@@ -1,0 +1,10 @@
+.About{
+    display: flexbox;
+    position:fixed;
+    margin: 1%;
+    padding: 20px;
+    top:90px;
+    background-color: aquamarine;
+    color: black;
+
+}
