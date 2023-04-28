@@ -37,7 +37,7 @@ return (
      name="email" 
      type="email" 
      placeholder="Ingresa Email"
-      value={userData.email} 
+      value={userData.username} 
       onChange={handleOnchange}/>
     {errors.username && <p className={styles.error}>{errors.username}</p>}
 
@@ -56,7 +56,7 @@ return (
       </button>
     {errors.password&&  <p className={styles.error}>{errors.password}</p>}
     <pf className={styles.recommendation}>We recommend using a password that includes a combination of uppercase and lowercase letters, numbers, and special characters for added security.  </pf>
-    <button className={styles['buttonf']} disabled={!userData.username||!userData.password||errors.username||errors.password}>Submit</button>
+    <button className={styles['buttonf']} >Submit</button>
     <hr /> </form>
     )
 }

@@ -39,10 +39,12 @@ useEffect(() =>{
 }, [myFavorites]);
 
 
+
     return (
       <div className={style.container}>
      
          <img src={image} alt='' />
+
 
       {isFavorite ? (
             <button  onClick={handleFavorites}class={style.favbutton}>✪</button>
@@ -56,7 +58,7 @@ useEffect(() =>{
          <h2>Species: {species}</h2>
          <h2>Gender: {gender}</h2>
          <h2>Origin: {origin.name}</h2>
-         <button onClick={()=>onClose(id)} class={style.closebutton}>X</button>
+         <button onClick={() => onClose(id)} className={style.closebutton}>X</button>
 
       </div>
    );
