@@ -32,11 +32,12 @@ function App() {
             access && navigate('/home');
       })
    }; 
-
-   useEffect(()=>{
-      !access && navigate("/");
-   }, [access]);
-
+   useEffect(() => {
+    if (!access) {
+      navigate('/');
+    }
+  }, [access, navigate]);
+  
 
    //! EVENTHANDLERS
    const onSearch = (id) => {
