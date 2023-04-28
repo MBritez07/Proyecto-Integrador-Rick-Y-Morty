@@ -1,23 +1,75 @@
-export const ADD_FAVORITE = "ADD_FAVORITE";
-export const REMOVE_FAVORITE = "REMOVE_FAVORITE";
-export const FILTER = "FILTER";
-export const ORDER = "ORDER";
+import axios from "axios";
+export const ADD_FAV = 'ADD_FAV';
+export const REMOVE_FAV = 'REMOVE_FAV';
+export const FILTER = 'FILTER';
+export const ORDER = 'ORDER';
 
-
-export const addFavorite=(character) => {
-    return {type: ADD_FAVORITE, payload: character};
+export const addFav = (character) => {
+  const endpoint = 'http://localhost:3001/rickandmorty/fav';
+  return (dispatch) => {
+    axios.post(endpoint, character)
+      .then(({ data }) => {
+        return dispatch({
+          type: ADD_FAV,
+          payload: data,
+        });
+      });
+  };
 };
-export const removeFavorite=(id) => {
-    return {type: REMOVE_FAVORITE, payload: id};
 
+export const removeFav = (id) => {
+  const endpoint = `http://localhost:3001/rickandmorty/fav/${id}`;
+  return (dispatch) => {
+    axios.delete(endpoint).then(({ data }) => {
+      return dispatch({
+        type: REMOVE_FAV,
+        payload: data,
+      });
+    });
+  };
 };
 
-export const filterCards = (gender) =>{
-    return {type: FILTER, payload:gender};
-
-}
+export const filterCards = (gender) => {
+  return { type: FILTER, payload: gender };
+};
 
 export const orderCards = (order) => {
-    return {type: ORDER, payload:order}
-}
+  return { type: ORDER, payload: order };
+};
+
+// import axios from "axios";
+// import {ADD_FAV, REMOVE_FAV,FILTER,ORDER}from './action'
+
+//     export const addFav = (character) => {
+//         const endpoint = 'http://localhost:3001/rickandmorty/fav';//*a mi servidor 
+//         return (dispatch) => { //retorno una funcion 
+//            axios.post(endpoint, character) 
+//            .then(({ data }) => {  //que hace una peticion *
+//               return dispatch({
+//                  type: ADD_FAV,
+//                  payload: data,
+//               }); 
+//            });
+//         };
+//      };
+
+// export const removeFav = (id) => {
+//     const endpoint = 'http://localhost:3001/rickandmorty/fav/' + id;
+//     return (dispatch) => {
+//        axios.delete(endpoint).then(({ data }) => {
+//           return dispatch({
+//              type: REMOVE_FAV,
+//              payload: data,
+//        });
+//        });
+//     };
+//  };
+// export const filterCards = (gender) =>{
+//     return {type: FILTER, payload:gender};
+
+// }
+
+// export const orderCards = (order) => {
+//     return {type: ORDER, payload:order}
+// }
 

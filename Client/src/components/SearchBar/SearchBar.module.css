@@ -8,7 +8,11 @@
 }
 
 .bar > * {
-  margin: 0;
+  
+  margin:0;
+  background-color: rgb(51, 219, 231);
+  display:flexbox
+
 
 }
 
@@ -24,7 +28,7 @@
   .searchInput {
     border: 0;
     border-radius: 15px 0 0 15px;
-    background-color: blueviolet;
+    background-color: rgb(21, 204, 104);
     height: 3em;
     scale: 0.8;
     padding: 0.5em;

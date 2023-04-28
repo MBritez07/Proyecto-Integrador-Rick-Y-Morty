@@ -7,6 +7,14 @@ body {
    color: aliceblue;
    text-align: center;
    background: linear-gradient(to bottom, #000000, #000000);
-
+   display:grid;
+   grid-template-columns: repeat(
+      auto-fit,
+      minmax(
+         150px,
+         1fr,
+         
+      )
+   );
 }
 

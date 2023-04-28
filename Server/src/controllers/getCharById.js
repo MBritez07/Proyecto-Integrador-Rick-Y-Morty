@@ -1,27 +1,30 @@
 const axios = require('axios');
-const data = require('../utils/data');
-const getChardById=(res,id)=>{
-axios.get(`http://rickandmortyapi.com/api/character/${id}`)
-.then(response=>response.data)
-.then(({name,gender,species,origin,image,status})=>{
+const URL =  "https://rickandmortyapi.com/api/character/"
+
+const getChardById=(req,res)=>{
+    const {id} = req.params;
+
+// Por defoult axios hace . get, otra forma de hacer esto es = axios.get(`http://rickandmortyapi.com/api/character/${id}`) y significa lo mismo
+axios(`${URL}/${id}`) 
+.then(response=>response.data)  // en esta response me quedo con data (response.data)
+.then(({id, status, name, species, origin, image, gender})=>{
+    if (name){
     const character={
         id,
         name,
-        gender,
         species,
-        origin: origin.name,
+        origin,
         image,
+        gender,
         status
 
     }
-    return res.writeHead(200, {"Content-Type": "application/json"})
-        .end(JSON.stringify(character))
+return res.status(200).json(character)
+}
+return res.status(404).send("Not found");
+  
 })
-.catch(error=>{
-    return res
-    .writeHead(500, {"Content-Type": "text/plain"})
-    .end(error.message)
-})
+.catch(error=> res.status(500).send(error.messange))
 }
 
 

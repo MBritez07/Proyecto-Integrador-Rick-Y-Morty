@@ -11,20 +11,32 @@ import {Routes,Route } from 'react-router-dom'; //necesario para usar el route
 import Forms from './components/Forms/Forms';
 import Favorites from './components/favorites/favorites';
 
+  // //  //Credenciales Fake
+  //   const email= "britezmicaela2@gmail.com";
+  //    const password= "MIIIK07";
+
 function App() {
    //!HOOKS
-   let [characters, setCharacters]=useState([]);
-   const {pathname}=useLocation();
-   const [access, setAccess]= useState(false);
+   const location =useLocation();
    const navigate = useNavigate();
+   let [characters, setCharacters]=useState([]);
+   const [access, setAccess]= useState(false);
+   
+   const login = (userData) => {                     //Esta funcion le manda info al back 
+         const { email, password } = userData;
+         const URL = 'http://localhost:3001/rickandmorty/login/'; //esta es la ruta (url) de nuestro back
+         axios(URL + `?email=${email}&password=${password}`)//le esta concatenando la query 
+         .then(({ data }) => {//destructurin de data 
+            const { access } = data;
+            setAccess(access);
+            access && navigate('/home');
+      })
+   }; 
 
    useEffect(()=>{
       !access && navigate("/");
-   },[access]);
+   }, [access]);
 
-   //Credenciales Fake
-    const username= "britezmicaela2@gmail.com";
-    const password= "MIIIK07";
 
    //! EVENTHANDLERS
    const onSearch = (id) => {
@@ -49,19 +61,14 @@ function App() {
       characters.id !==Number(id))
       setCharacters(characterfiltered)}
       
-   const login = (userData)=>{
-      if (userData.username===username && userData.password===password){
-         setAccess(true);
-         navigate("/home");
-      }
-   }; 
+   
 
    return (
       <div className='App' style = {{padding: "26px",}}>
       <div className={style.navbar}>
      </div> 
      
-      {pathname!=="/" && <Nav onSearch={onSearch} access={access} setAccess={setAccess}/>}
+      {location!=="/" && <Nav onSearch={onSearch} access={access} setAccess={setAccess}/>}
       <Routes>
       <Route path = "/" element={<Forms login= {login}/>}/>
       <Route path='/home' element ={ <Cards characters={characters} 
