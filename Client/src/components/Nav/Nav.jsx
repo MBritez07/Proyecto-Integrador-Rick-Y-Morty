@@ -1,9 +1,11 @@
 import SearchBar from "../SearchBar/SearchBar";
-import { NavLink,useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import style from "./Nav.module.css";
 
 const Nav = ({ onSearch, access, setAccess }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const showNav = location.pathname !== "/";
 
   const handleLogOut = () => {
     setAccess(false);
@@ -11,7 +13,7 @@ const Nav = ({ onSearch, access, setAccess }) => {
   };
 
   return (
-    access && (
+    showNav && access && (
       <div className={style.bar1}>
         <SearchBar onSearch={onSearch} />
         <button className={style.myButton}>
@@ -38,4 +40,3 @@ const Nav = ({ onSearch, access, setAccess }) => {
 };
 
 export default Nav;
-
