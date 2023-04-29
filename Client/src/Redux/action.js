@@ -6,70 +6,46 @@ export const ORDER = 'ORDER';
 
 export const addFav = (character) => {
   const endpoint = 'http://localhost:3001/rickandmorty/fav';
-  return (dispatch) => {
-    axios.post(endpoint, character)
-      .then(({ data }) => {
-        return dispatch({
+  return async (dispatch) => {
+    try {
+      const { data } = await  axios.post(endpoint, character)
+    
+      if (!data.length) throw Error ('No hay favoritos')
+
+      return dispatch({
           type: ADD_FAV,
           payload: data,
         });
-      });
+
+    } catch (error) {
+      console.log (error.message);
+    }
   };
 };
 
 export const removeFav = (id) => {
   const endpoint = `http://localhost:3001/rickandmorty/fav/${id}`;
-  return (dispatch) => {
-    axios.delete(endpoint).then(({ data }) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.delete(endpoint)
+
+      if (!data.length) throw Error ('No hay favoritos')
+
       return dispatch({
-        type: REMOVE_FAV,
+        type:  REMOVE_FAV,
         payload: data,
       });
-    });
-  };
+  } catch (error) {
+    console.log (error.message);
+  }
 };
+};
+
 
 export const filterCards = (gender) => {
   return { type: FILTER, payload: gender };
-};
+}
 
 export const orderCards = (order) => {
   return { type: ORDER, payload: order };
-};
-
-// import axios from "axios";
-// import {ADD_FAV, REMOVE_FAV,FILTER,ORDER}from './action'
-
-//     export const addFav = (character) => {
-//         const endpoint = 'http://localhost:3001/rickandmorty/fav';//*a mi servidor 
-//         return (dispatch) => { //retorno una funcion 
-//            axios.post(endpoint, character) 
-//            .then(({ data }) => {  //que hace una peticion *
-//               return dispatch({
-//                  type: ADD_FAV,
-//                  payload: data,
-//               }); 
-//            });
-//         };
-//      };
-
-// export const removeFav = (id) => {
-//     const endpoint = 'http://localhost:3001/rickandmorty/fav/' + id;
-//     return (dispatch) => {
-//        axios.delete(endpoint).then(({ data }) => {
-//           return dispatch({
-//              type: REMOVE_FAV,
-//              payload: data,
-//        });
-//        });
-//     };
-//  };
-// export const filterCards = (gender) =>{
-//     return {type: FILTER, payload:gender};
-
-// }
-
-// export const orderCards = (order) => {
-//     return {type: ORDER, payload:order}
-// }
-
+}
