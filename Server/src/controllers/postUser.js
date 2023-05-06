@@ -1,5 +1,7 @@
 const {User} = require('../Db_connection');
+ 
 
+  
 const PostUser = async(req,res)=>{
     try {
     const { email, password } = req.body;
@@ -10,8 +12,9 @@ const PostUser = async(req,res)=>{
    // Buscamos el usuario en la base de datos
    const [user, created] = await User.findOrCreate({
     where: { email },
-    defaults: { password },
+    defaults: { id: 1, email, password },
   });
+  
 
   // Si el usuario ya existía en la base de datos, devolvemos un mensaje de error
   if (!created) {
