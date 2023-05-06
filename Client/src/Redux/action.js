@@ -25,21 +25,24 @@ export const addFav = (character) => {
 
 export const removeFav = (id) => {
   const endpoint = `http://localhost:3001/rickandmorty/fav/${id}`;
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     try {
-      const { data } = await axios.delete(endpoint)
+      const { data } = await axios.delete(endpoint);
+      const { myFavorites } = getState();
 
-      if (!data.length) throw Error ('No hay favoritos')
+      // Filter out the character with the given id from myFavorites
+      const newFavorites = myFavorites.filter((char) => char.id !== id);
 
       return dispatch({
-        type:  REMOVE_FAV,
-        payload: data,
+        type: REMOVE_FAV,
+        payload: newFavorites,
       });
-  } catch (error) {
-    console.log (error.message);
-  }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 };
-};
+
 
 
 export const filterCards = (gender) => {

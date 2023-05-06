@@ -48,13 +48,18 @@ function App() {
     try {
       const {data} = await axios(`http://localhost:3001/rickandmorty/character/${id}`);
       if (data.name) {
+        // Verificar si el personaje ya existe en el array
+        if (!characters.some(char => char.id === data.id)) {
           setCharacters((oldChars) => [...oldChars, data]);
-   };
-
+        } else {
+          alert('¡El personaje ya existe en la lista!');
+        }
+      };
     } catch (error) {
-   alert('¡No hay personajes con este ID!');
-  }
-};
+      alert('¡No hay personajes con este ID!');
+    }
+  };
+  
    let onClose = (id) => {
       const characterfiltered= characters.filter(characters=>
       characters.id !==Number(id))

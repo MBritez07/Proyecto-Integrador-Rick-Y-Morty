@@ -11,7 +11,12 @@ const Favorites = ({ myFavorites, isEmpty }) => {
 
   const removeFromFavorites = (id) => {
     dispatch(removeFav(id));
+    const orderElement = document.getElementById("order");
+    if (orderElement) {
+      dispatch(orderCards(orderElement.value));
+    }
   };
+  
 
   return (
     <div className={isEmpty ? style.fondo1 : ""}>
